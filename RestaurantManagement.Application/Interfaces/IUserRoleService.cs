@@ -10,5 +10,7 @@ namespace RestaurantManagement.Application.Interfaces
     public interface IUserRoleService
     {
         Task<IEnumerable<UserRoleDto>> GetUserRolesAsync(int userId);
+        Task<UserRoleDto> CreateUserRoleAsync(UserRoleDto dto, int currentUserId);
+
     }
 }

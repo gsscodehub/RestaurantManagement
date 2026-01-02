@@ -23,6 +23,11 @@ namespace RestaurantManagement.Application.Services
             _mapper = mapper;
         }
 
+        public Task<UserRoleDto> CreateUserRoleAsync(UserRoleDto dto, int currentUserId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<UserRoleDto>> GetUserRolesAsync(int userId)
         {
             // Only filter by userId from controller — IsActive is enforced here
