@@ -55,6 +55,19 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+//  Add CORS policy
+
+builder.Services.AddCors(options =>
+{ options.AddPolicy("MyReactPolicy", policy => 
+    {
+      policy.WithOrigins("http://localhost:5173")
+      // React dev server
+       .AllowAnyHeader() 
+       .AllowAnyMethod()
+       .AllowCredentials(); // if you plan to send cookies/JWT via browser
+    }); 
+});
+
 builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", opt =>
 {
     opt.Events = new JwtBearerEvents
@@ -86,6 +99,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//  Apply CORS before authentication/authorization
+app.UseCors("MyReactPolicy");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
