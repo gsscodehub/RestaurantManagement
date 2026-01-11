@@ -50,7 +50,8 @@ namespace RestaurantManagementAPI.Controllers
             {
                 HttpOnly = true, // not accessible via JavaScript
                 Secure = true, // only over HTTPS
-                SameSite = SameSiteMode.Strict, // prevent CSRF
+              //  SameSite = SameSiteMode.Strict, // prevent CSRF and this way third party can not have access of token like : react frontend code will nt receive the token set in browser
+                SameSite = SameSiteMode.None, // ✅ allow cross-origin as this way when you get token then react will have token as well as swagger and token also work when token manually passed from swagger or postman or any third party app
                 Expires = DateTimeOffset.UtcNow.AddHours(1)
             });
 
@@ -60,7 +61,8 @@ namespace RestaurantManagementAPI.Controllers
                 token,
                 menu = menus,
                 user,
-                roles // optional: return role info in response
+                roles, // optional: return role info in response
+                claims = permissions  // each page has 5 claims like : create/edit/update/view/delete
             });
         }
 

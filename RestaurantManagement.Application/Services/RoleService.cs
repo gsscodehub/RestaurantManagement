@@ -41,5 +41,35 @@ namespace RestaurantManagement.Application.Services
                 var roles = await _repo.GetActiveRolesBySpAsync();
                 return _mapper.Map<IEnumerable<RoleDto>>(roles);            
         }
+        public async Task<RoleDto> UpdateRoleAsync(RoleDto dto, int currentUserId)
+        {
+            var entity = await _repo.GetByIdAsync(dto.Id);
+            if (entity == null) throw new Exception("Role not found");
+
+            entity.RoleName = dto.RoleName;
+            entity.IsActive = dto.IsActive;
+            entity.MarkUpdated(currentUserId);
+
+            await _repo.UpdateAsync(entity);
+            return _mapper.Map<RoleDto>(entity);
+        }
+
+        public async Task<bool> DeleteRoleAsync(int id, int currentUserId)
+        {
+            var entity = await _repo.GetByIdAsync(id);
+            if (entity == null) return false;
+
+            entity.Deactivate();
+            entity.MarkUpdated(currentUserId);
+            await _repo.UpdateAsync(entity);
+            return true;
+        }
+
+        public async Task<RoleDto> GetByIdAsync(int id)
+        {
+            var entity = await _repo.GetByIdAsync(id);
+            return _mapper.Map<RoleDto>(entity);
+        }
+
     }
 }

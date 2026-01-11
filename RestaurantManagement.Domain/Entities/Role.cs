@@ -11,7 +11,7 @@ namespace RestaurantManagement.Domain.Entities
     public class Role : BaseEntity
     {
         [Key]
-        [Column("RoleId")] // Map BaseEntity.Id to PageId column
+        [Column("RoleId")] // Map BaseEntity.Id to RoleId column
         public new int Id { get; set; }
         public string RoleName { get; set; } = null!;
     }

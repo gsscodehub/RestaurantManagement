@@ -32,5 +32,13 @@ namespace RestaurantManagementAPI.Controllers
             var users = await _userService.GetAllAsync();
             return Ok(users);
         }
+
+        [HttpGet("created-by/{userId}")]
+        public async Task<IActionResult> GetCreatedBy(int userId)
+        {
+            var users = await _userService.GetAllCreatedByAsync(userId);
+            return Ok(users);
+        }
+
     }
 }

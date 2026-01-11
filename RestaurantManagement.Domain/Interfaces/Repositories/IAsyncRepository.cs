@@ -28,5 +28,8 @@ namespace RestaurantManagement.Domain.Interfaces.Repositories
         Task<IEnumerable<Page>> GetUserMenuBySpAsync(int userId);
         Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> predicate); // 🔑 new method
 
+        Task<IEnumerable<T>> ListCreatedByAsync(int userId);
+
+
     }
 }

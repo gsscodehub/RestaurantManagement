@@ -6,6 +6,7 @@ using RestaurantManagement.Domain.Interfaces.Security;
 using RestaurantManagement.Infrastructure.Extensions;
 using RestaurantManagement.Infrastructure.Security;
 using System.Text;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,13 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
 // Add services to the container.
-builder.Services.AddControllers();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -58,9 +65,10 @@ builder.Services.AddSwaggerGen(c =>
 //  Add CORS policy
 
 builder.Services.AddCors(options =>
-{ options.AddPolicy("MyReactPolicy", policy => 
+{ 
+    options.AddPolicy("MyReactPolicy", policy => 
     {
-      policy.WithOrigins("http://localhost:5173")
+      policy.WithOrigins("http://localhost:5173" , "https://localhost:7252")
       // React dev server
        .AllowAnyHeader() 
        .AllowAnyMethod()

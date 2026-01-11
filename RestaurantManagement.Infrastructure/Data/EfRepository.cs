@@ -54,10 +54,9 @@ namespace RestaurantManagement.Infrastructure.Data
                 "sp_GetActiveRoles",
                 commandType: CommandType.StoredProcedure);
         }
-
         Task<T?> IAsyncRepository<T>.GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Set<T>().FindAsync(id).AsTask();
         }
 
         Task<T?> IAsyncRepository<T>.GetLastRecordAsync()
@@ -84,5 +83,13 @@ namespace RestaurantManagement.Infrastructure.Data
         { 
             return await _dbContext.Set<T>().Where(predicate).ToListAsync();
         }
+
+        public async Task<IEnumerable<T>> ListCreatedByAsync(int userId)
+        {
+            return await _dbContext.Set<T>()
+                .Where(e => EF.Property<int>(e, "CreatedBy") == userId)
+                .ToListAsync();
+        }
+
     }
 }

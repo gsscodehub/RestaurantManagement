@@ -12,21 +12,9 @@ namespace RestaurantManagement.Application.Mappings
         public MappingProfile()
         {
             CreateMap<User, UserDto>().ReverseMap();
-
-
-
             CreateMap<Role, RoleDto>().ReverseMap();
-            CreateMap<Page, MenuItemDto>()
-          .ForMember(d => d.PageId, o => o.MapFrom(s => s.Id))
-          .ReverseMap()
-          .ForMember(d => d.Id, o => o.MapFrom(s => s.PageId));
-
-          CreateMap<UserRole, UserRoleDto>().ReverseMap();
-
-
-
-
-
+            CreateMap<Page, MenuItemDto>().ForMember(d => d.PageId, o => o.MapFrom(s => s.Id)).ReverseMap().ForMember(d => d.Id, o => o.MapFrom(s => s.PageId));
+            CreateMap<UserRole, UserRoleDto>().ReverseMap();
         }
     }
 

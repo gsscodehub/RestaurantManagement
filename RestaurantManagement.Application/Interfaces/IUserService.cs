@@ -14,7 +14,10 @@ namespace RestaurantManagement.Application.Interfaces
         Task<UserDto> CreateUserAsync(UserDto dto, int currentUserId);
         Task<UserDto> UpdateUserAsync(UserDto dto, int currentUserId);
         Task<IEnumerable<UserDto>> GetAllAsync();
-      
+
+        // ✅ New method
+        Task<IEnumerable<UserDto>> GetAllCreatedByAsync(int creatorUserId);
+
 
     }
 }

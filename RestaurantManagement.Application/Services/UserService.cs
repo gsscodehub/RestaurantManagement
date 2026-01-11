@@ -63,6 +63,13 @@ namespace RestaurantManagement.Application.Services
             return _mapper.Map<IEnumerable<UserDto>>(users);
         }
 
+        public async Task<IEnumerable<UserDto>> GetAllCreatedByAsync(int userId)
+        {
+            var users = await _repo.ListCreatedByAsync(userId);
+            return _mapper.Map<IEnumerable<UserDto>>(users);
+        }
+
+
         private static string Hash(string input)
         {
             return Convert.ToBase64String(KeyDerivation.Pbkdf2(

@@ -25,5 +25,26 @@ namespace RestaurantManagementAPI.Controllers
             var roles = await _roleService.GetActiveRolesAsync();
             return Ok(roles);
         }
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateRole(RoleDto dto)
+        {
+            var updated = await _roleService.UpdateRoleAsync(dto, currentUserId: 1);
+            return Ok(updated);
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteRole(int id)
+        {
+            var result = await _roleService.DeleteRoleAsync(id, currentUserId: 1);
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetRoleById(int id)
+        {
+            var role = await _roleService.GetByIdAsync(id);
+            return Ok(role);
+        }
+
     }
 }
